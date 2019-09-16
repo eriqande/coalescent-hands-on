@@ -1,0 +1,39 @@
+---
+title: "Detailed Explanations of SalarHybPower"
+output: 
+  html_document:
+    toc: false
+    toc_flaot: false
+
+---
+
+Here are links to a series of pages about the development and use of the 
+SalarHybPower R package.
+
+## Getting the repository
+
+To reproduce these analyses you need to 
+
+1. Get the repository at
+[https://github.com/eriqande/SalarHybPower](https://github.com/eriqande/SalarHybPower).  This 
+is still a private repo, but will be made public as soon as I learn that it is OK to release the 
+SNP array data that is in it.  
+2. That repo is an Rstudio project for an Rpackage.  Build the package.
+3. Run all the notebooks (and shell commands within them...) listed below from the 
+root directory of the repository.  
+
+Have fun. Questions to eric.anderson@noaa.gov
+
+## Preparing a "pseudo" linkage map
+
+- [dev-01-initial-data-maneuvers.nb.html](./dev-01-initial-data-maneuvers.nb.html) --- How I went about making a sex-averaged linkage map and "sprinkling" unmapped markers into it.  I was originally thinking I was going to write this to PLINK format, but discovered I could do things better and just as quickly in a tidy format.
+
+
+## Actually doing the analyses for the paper
+
+- [doing-it-01-big-runs-newfoundland.nb.html](./doing-it-01-big-runs-newfoundland.nb.html) --- A notebook showing the steps taken to actually to the whole big run for the Newfoundland data set.
+- [doing-it-summarizing-newfoundland-big-runs.nb.html](./doing-it-summarizing-newfoundland-big-runs.nb.html) --- Summarizing
+the Newfoundland runs. Computing accuracy and efficiency and also computing ROC curves.
+- [doing-it-02-big-runs-maritimes.nb.html](./doing-it-02-big-runs-maritimes.nb.html) --- A notebook showing the steps taken to actually to the whole big run for the Maritimes data set.
+- [doing-it-summarizing-maritimes-big-runs.nb.html](./doing-it-summarizing-maritimes-big-runs.nb.html) --- Summarizing
+the Maritimes runs. Computing accuracy and efficiency and also computing ROC curves.
