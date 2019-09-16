@@ -59,7 +59,7 @@ BiocManager::install("ggtree")
 
 Once that is done, you can test that you have everything is working by running a few lines of code.
 First, load the libraries and make sure there are no glaring errors or failures:
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(ape)
 library(ggtree)

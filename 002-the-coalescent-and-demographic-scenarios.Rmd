@@ -16,7 +16,7 @@ bibliography: references.bib
 
 We are using `ms` this way because it is fairly easy to distribute the binaries
 in an R package.
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(GSImulator)
 ```
@@ -52,8 +52,7 @@ trees and looking at them.  In order to do that, you will need to install anothe
 couple packages if you don't already have them.  See `000-prep-for-coalescent.Rmd`.
 
 Load the other packages we will use:
-```{r}
-
+```{r, message=FALSE, warning=FALSE}
 library(ape)
 library(ggtree)
 ```
@@ -73,7 +72,7 @@ a tree.
 system2(command = ms_binary(), args = "10 1 -T", stdout = "out.tree")
 ctree <- read.tree("out.tree") 
 ggtree(ctree, layout = "rectangular") +
-  geom_tiplab(size = 4) + coord_flip() + scale_x_reverse()
+  geom_tiplab(size = 3) + coord_flip() + scale_x_reverse()
 ```
 
 OK, that is pretty cool and easy.
@@ -93,7 +92,7 @@ ctree <- read.tree("out.tree")
 names(ctree) <- 1:12
 ggtree(ctree, layout = "rectangular") +
   facet_wrap(~.id, ncol  = 3) +
-  geom_tiplab(size = 3)
+  geom_tiplab(size = 2)
   
 
 ```

@@ -9,12 +9,11 @@ bibliography: references.bib
 ---
 
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(GSImulator)
 library(ape)
 library(ggtree)
-
 ```
 
 `ms` will simulate infinite sites mutation very readily.  There are two

@@ -2894,48 +2894,13 @@ div.tocify {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5saWJyYXJ5KEdTSW11bGF0b3IpXG5saWJyYXJ5KGFwZSlcbmxpYnJhcnkoZ2d0cmVlKVxuXG5gYGAifQ== -->
+<pre class="r"><code>library(tidyverse)
+library(GSImulator)
+library(ape)
+library(ggtree)
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXHUwMDFiWzMwbeKUgOKUgCBcdTAwMWJbMW1BdHRhY2hpbmcgcGFja2FnZXNcdTAwMWJbMjJtIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCB0aWR5dmVyc2UgMS4yLjEg4pSA4pSAXHUwMDFiWzM5bVxuXHUwMDFiWzMwbVx1MDAxYlszMm3inJRcdTAwMWJbMzBtIFx1MDAxYlszNG1nZ3Bsb3QyXHUwMDFiWzMwbSAzLjIuMSAgICAgXHUwMDFiWzMybeKclFx1MDAxYlszMG0gXHUwMDFiWzM0bXB1cnJyICBcdTAwMWJbMzBtIDAuMy4yXG5cdTAwMWJbMzJt4pyUXHUwMDFiWzMwbSBcdTAwMWJbMzRtdGliYmxlIFx1MDAxYlszMG0gMi4xLjMgICAgIFx1MDAxYlszMm3inJRcdTAwMWJbMzBtIFx1MDAxYlszNG1kcGx5ciAgXHUwMDFiWzMwbSAwLjguM1xuXHUwMDFiWzMybeKclFx1MDAxYlszMG0gXHUwMDFiWzM0bXRpZHlyICBcdTAwMWJbMzBtIDEuMC4wICAgICBcdTAwMWJbMzJt4pyUXHUwMDFiWzMwbSBcdTAwMWJbMzRtc3RyaW5nclx1MDAxYlszMG0gMS40LjBcblx1MDAxYlszMm3inJRcdTAwMWJbMzBtIFx1MDAxYlszNG1yZWFkciAgXHUwMDFiWzMwbSAxLjMuMSAgICAgXHUwMDFiWzMybeKclFx1MDAxYlszMG0gXHUwMDFiWzM0bWZvcmNhdHNcdTAwMWJbMzBtIDAuMy4wXHUwMDFiWzM5bVxucGFja2FnZSDigJhnZ3Bsb3Qy4oCZIHdhcyBidWlsdCB1bmRlciBSIHZlcnNpb24gMy41LjJwYWNrYWdlIOKAmHRpYmJsZeKAmSB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDMuNS4ycGFja2FnZSDigJh0aWR5cuKAmSB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDMuNS4ycGFja2FnZSDigJhwdXJycuKAmSB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDMuNS4ycGFja2FnZSDigJhkcGx5cuKAmSB3YXMgYnVpbHQgdW5kZXIgUiB2ZXJzaW9uIDMuNS4ycGFja2FnZSDigJhzdHJpbmdy4oCZIHdhcyBidWlsdCB1bmRlciBSIHZlcnNpb24gMy41LjJcdTAwMWJbMzBt4pSA4pSAIFx1MDAxYlsxbUNvbmZsaWN0c1x1MDAxYlsyMm0g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAIHRpZHl2ZXJzZV9jb25mbGljdHMoKSDilIDilIBcblx1MDAxYlszMW3inJZcdTAwMWJbMzBtIFx1MDAxYlszNG1kcGx5clx1MDAxYlszMG06Olx1MDAxYlszMm1maWx0ZXIoKVx1MDAxYlszMG0gbWFza3MgXHUwMDFiWzM0bXN0YXRzXHUwMDFiWzMwbTo6ZmlsdGVyKClcblx1MDAxYlszMW3inJZcdTAwMWJbMzBtIFx1MDAxYlszNG1kcGx5clx1MDAxYlszMG06Olx1MDAxYlszMm1sYWcoKVx1MDAxYlszMG0gICAgbWFza3MgXHUwMDFiWzM0bXN0YXRzXHUwMDFiWzMwbTo6bGFnKClcdTAwMWJbMzltXG4ifQ== -->
-<pre><code>[30m── [1mAttaching packages[22m ─────────────────────────────────────────── tidyverse 1.2.1 ──[39m
-[30m[32m✔[30m [34mggplot2[30m 3.2.1     [32m✔[30m [34mpurrr  [30m 0.3.2
-[32m✔[30m [34mtibble [30m 2.1.3     [32m✔[30m [34mdplyr  [30m 0.8.3
-[32m✔[30m [34mtidyr  [30m 1.0.0     [32m✔[30m [34mstringr[30m 1.4.0
-[32m✔[30m [34mreadr  [30m 1.3.1     [32m✔[30m [34mforcats[30m 0.3.0[39m
-package ‘ggplot2’ was built under R version 3.5.2package ‘tibble’ was built under R version 3.5.2package ‘tidyr’ was built under R version 3.5.2package ‘purrr’ was built under R version 3.5.2package ‘dplyr’ was built under R version 3.5.2package ‘stringr’ was built under R version 3.5.2[30m── [1mConflicts[22m ────────────────────────────────────────────── tidyverse_conflicts() ──
-[31m✖[30m [34mdplyr[30m::[32mfilter()[30m masks [34mstats[30m::filter()
-[31m✖[30m [34mdplyr[30m::[32mlag()[30m    masks [34mstats[30m::lag()[39m</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShHU0ltdWxhdG9yKVxubGlicmFyeShhcGUpXG5gYGAifQ== -->
-<pre class="r"><code>library(GSImulator)
-library(ape)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoicGFja2FnZSDigJhhcGXigJkgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiAzLjUuMlxuIn0= -->
-<pre><code>package ‘ape’ was built under R version 3.5.2</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShnZ3RyZWUpXG5gYGAifQ== -->
-<pre class="r"><code>library(ggtree)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoicGFja2FnZSDigJhnZ3RyZWXigJkgd2FzIGJ1aWx0IHVuZGVyIFIgdmVyc2lvbiAzLjUuMmdndHJlZSB2MS4xNC42ICBGb3IgaGVscDogaHR0cHM6Ly9ndWFuZ2NodWFuZ3l1LmdpdGh1Yi5pby9zb2Z0d2FyZS9nZ3RyZWVcblxuSWYgeW91IHVzZSBnZ3RyZWUgaW4gcHVibGlzaGVkIHJlc2VhcmNoLCBwbGVhc2UgY2l0ZSB0aGUgbW9zdCBhcHByb3ByaWF0ZSBwYXBlcihzKTpcblxuLSBHdWFuZ2NodWFuZyBZdSwgRGF2aWQgU21pdGgsIEh1YWNoZW4gWmh1LCBZaSBHdWFuLCBUb21teSBUc2FuLVl1ayBMYW0uIGdndHJlZTogYW4gUiBwYWNrYWdlIGZvciB2aXN1YWxpemF0aW9uIGFuZCBhbm5vdGF0aW9uIG9mIHBoeWxvZ2VuZXRpYyB0cmVlcyB3aXRoIHRoZWlyIGNvdmFyaWF0ZXMgYW5kIG90aGVyIGFzc29jaWF0ZWQgZGF0YS4gTWV0aG9kcyBpbiBFY29sb2d5IGFuZCBFdm9sdXRpb24gMjAxNywgOCgxKToyOC0zNiwgZG9pOjEwLjExMTEvMjA0MS0yMTBYLjEyNjI4XG5cbi0gR3VhbmdjaHVhbmcgWXUsIFRvbW15IFRzYW4tWXVrIExhbSwgSHVhY2hlbiBaaHUsIFlpIEd1YW4uIFR3byBtZXRob2RzIGZvciBtYXBwaW5nIGFuZCB2aXN1YWxpemluZyBhc3NvY2lhdGVkIGRhdGEgb24gcGh5bG9nZW55IHVzaW5nIGdndHJlZS4gTW9sZWN1bGFyIEJpb2xvZ3kgYW5kIEV2b2x1dGlvbiAyMDE4LCBhY2NlcHRlZC4gZG9pOiAxMC4xMDkzL21vbGJldi9tc3kxOTRcblxuQXR0YWNoaW5nIHBhY2thZ2U6IOKAmGdndHJlZeKAmVxuXG5UaGUgZm9sbG93aW5nIG9iamVjdCBpcyBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOmFwZeKAmTpcblxuICAgIHJvdGF0ZVxuXG5UaGUgZm9sbG93aW5nIG9iamVjdCBpcyBtYXNrZWQgZnJvbSDigJhwYWNrYWdlOnRpZHly4oCZOlxuXG4gICAgZXhwYW5kXG4ifQ== -->
-<pre><code>package ‘ggtree’ was built under R version 3.5.2ggtree v1.14.6  For help: https://guangchuangyu.github.io/software/ggtree
-
-If you use ggtree in published research, please cite the most appropriate paper(s):
-
-- Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. Methods in Ecology and Evolution 2017, 8(1):28-36, doi:10.1111/2041-210X.12628
-
-- Guangchuang Yu, Tommy Tsan-Yuk Lam, Huachen Zhu, Yi Guan. Two methods for mapping and visualizing associated data on phylogeny using ggtree. Molecular Biology and Evolution 2018, accepted. doi: 10.1093/molbev/msy194
-
-Attaching package: ‘ggtree’
-
-The following object is masked from ‘package:ape’:
-
-    rotate
-
-The following object is masked from ‘package:tidyr’:
-
-    expand</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p><code>ms</code> will simulate infinite sites mutation very readily. There are two options.</p>
@@ -2987,7 +2952,7 @@ ggtree(ctree, layout = &quot;rectangular&quot;) +
 <p>Instead of using the <code>-s</code> option to specify the exact number of segregating sites, you can also use the <code>-t</code> option to specify <span class="math inline">\(\theta = 4N\mu L\)</span> where <span class="math inline">\(\nu\)</span> is the per-base-pair per-generation mutation rate and <span class="math inline">\(L\)</span> is the length of the DNA sequence in number of base pairs.</p>
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiSW5maW5pdGUgU2l0ZXMgTXV0YXRpb24iCm91dHB1dDogCiAgaHRtbF9ub3RlYm9vazoKICAgIHRvYzogdHJ1ZQogICAgdG9jX2Zsb2F0OiB0cnVlCmF1dGhvcjogIkVyaWMgQy4gQW5kZXJzb24iCmJpYmxpb2dyYXBoeTogcmVmZXJlbmNlcy5iaWIKLS0tCgoKYGBge3J9CmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KEdTSW11bGF0b3IpCmxpYnJhcnkoYXBlKQpsaWJyYXJ5KGdndHJlZSkKCmBgYAoKYG1zYCB3aWxsIHNpbXVsYXRlIGluZmluaXRlIHNpdGVzIG11dGF0aW9uIHZlcnkgcmVhZGlseS4gIFRoZXJlIGFyZSB0d28Kb3B0aW9ucy4gIAoKRmlyc3Qgd2UgY2FuIHRlbGwgaXQgdG8gc2ltdWxhdGUgYW4gZXhhY3QgbnVtYmVyIG9mIHNlZ3JlZ2F0aW5nIHNpdGVzIChsaWtlIDcsIGZvcgpleGFtcGxlKToKYGBge3J9CgpjYXQoIjEwMSAyMDMiLCBmaWxlID0gInNlZWRtcyIpICAjIHRoaXMgc2V0cyB0aGUgc2VlZCBmb3IgbXMKc3lzdGVtMihjb21tYW5kID0gbXNfYmluYXJ5KCksIGFyZ3MgPSAiMTAgMSAtcyA3IC1UIikKYGBgCgpOb3RpY2UgdGhhdCB0aGUgc2FtcGxlcyBjYW4gYmUgdGhvdWdodCBvZiBhcyBiZWluZyBsYWJlbGVkIDEtLTEwLCBhbmQgdGhlIG11dGF0aW9ucwpjYW4gYmUgdGhvdWdodCBvZiBhcyBiZWluZyBsYWJlbGVkIDEtLTcuICBFYWNoIGxpbmUgbGlrZSAwMDEwMDEwIGlzIGFuIGluZGl2aWR1YWwKZ2VuZSBzZXF1ZW5jZSBzYW1wbGUuICBBIDEgbWVhbnMgaXQgaW5oZXJpdGVkIHRoZSBtdXRhdGlvbiwgYW5kIGEgMCBtZWFucyBpdCBpbmhlcml0ZWQKdGhlIG5vbi1tdXRhdGVkIGJhc2UuCgpUaGF0IGJlaW5nIHRoZSBjYXNlLCBhbiBleGNlbGxlbnQgZXhlcmNpc2UgaXMgdG8gcGFpciB1cCB3aXRoIGEgcGFydG5lciwgcHJpbnQKdGhlIHRyZWUgb3V0IGxpa2UgYmVsb3csIGFuZCB0aGVuIGZpbmQgdGhlIGJyYW5jaGVzIHVwb24gd2hpY2ggbXV0YXRpb25zIG11c3QgaGF2ZQpvY2N1cnJlZDoKYGBge3J9CmNhdCgiMTAxIDIwMyIsIGZpbGUgPSAic2VlZG1zIikgICMgdGhpcyBzZXRzIHRoZSBzZWVkIGZvciBtcwpzeXN0ZW0yKGNvbW1hbmQgPSBtc19iaW5hcnkoKSwgYXJncyA9ICIxMCAxIC1zIDcgLVQiLCBzdGRvdXQgPSAib3V0LnRyZWUiKQpjdHJlZSA8LSByZWFkLnRyZWUoIm91dC50cmVlIikgCmdndHJlZShjdHJlZSwgbGF5b3V0ID0gInJlY3Rhbmd1bGFyIikgKwogIGdlb21fdGlwbGFiKHNpemUgPSA1KQpgYGAKCkluc3RlYWQgb2YgdXNpbmcgdGhlIGAtc2Agb3B0aW9uIHRvIHNwZWNpZnkgdGhlIGV4YWN0IG51bWJlciBvZiBzZWdyZWdhdGluZyBzaXRlcywKeW91IGNhbiBhbHNvIHVzZSB0aGUgYC10YCBvcHRpb24gdG8gc3BlY2lmeSAkXHRoZXRhID0gNE5cbXUgTCQgd2hlcmUgJFxudSQgaXMgdGhlIApwZXItYmFzZS1wYWlyIHBlci1nZW5lcmF0aW9uIG11dGF0aW9uIHJhdGUgYW5kICRMJCBpcyB0aGUgbGVuZ3RoIG9mIHRoZSBETkEgc2VxdWVuY2UKaW4gbnVtYmVyIG9mIGJhc2UgcGFpcnMuCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiSW5maW5pdGUgU2l0ZXMgTXV0YXRpb24iCm91dHB1dDogCiAgaHRtbF9ub3RlYm9vazoKICAgIHRvYzogdHJ1ZQogICAgdG9jX2Zsb2F0OiB0cnVlCmF1dGhvcjogIkVyaWMgQy4gQW5kZXJzb24iCmJpYmxpb2dyYXBoeTogcmVmZXJlbmNlcy5iaWIKLS0tCgoKYGBge3IsIG1lc3NhZ2U9RkFMU0UsIHdhcm5pbmc9RkFMU0V9CmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KEdTSW11bGF0b3IpCmxpYnJhcnkoYXBlKQpsaWJyYXJ5KGdndHJlZSkKYGBgCgpgbXNgIHdpbGwgc2ltdWxhdGUgaW5maW5pdGUgc2l0ZXMgbXV0YXRpb24gdmVyeSByZWFkaWx5LiAgVGhlcmUgYXJlIHR3bwpvcHRpb25zLiAgCgpGaXJzdCB3ZSBjYW4gdGVsbCBpdCB0byBzaW11bGF0ZSBhbiBleGFjdCBudW1iZXIgb2Ygc2VncmVnYXRpbmcgc2l0ZXMgKGxpa2UgNywgZm9yCmV4YW1wbGUpOgpgYGB7cn0KCmNhdCgiMTAxIDIwMyIsIGZpbGUgPSAic2VlZG1zIikgICMgdGhpcyBzZXRzIHRoZSBzZWVkIGZvciBtcwpzeXN0ZW0yKGNvbW1hbmQgPSBtc19iaW5hcnkoKSwgYXJncyA9ICIxMCAxIC1zIDcgLVQiKQpgYGAKCk5vdGljZSB0aGF0IHRoZSBzYW1wbGVzIGNhbiBiZSB0aG91Z2h0IG9mIGFzIGJlaW5nIGxhYmVsZWQgMS0tMTAsIGFuZCB0aGUgbXV0YXRpb25zCmNhbiBiZSB0aG91Z2h0IG9mIGFzIGJlaW5nIGxhYmVsZWQgMS0tNy4gIEVhY2ggbGluZSBsaWtlIDAwMTAwMTAgaXMgYW4gaW5kaXZpZHVhbApnZW5lIHNlcXVlbmNlIHNhbXBsZS4gIEEgMSBtZWFucyBpdCBpbmhlcml0ZWQgdGhlIG11dGF0aW9uLCBhbmQgYSAwIG1lYW5zIGl0IGluaGVyaXRlZAp0aGUgbm9uLW11dGF0ZWQgYmFzZS4KClRoYXQgYmVpbmcgdGhlIGNhc2UsIGFuIGV4Y2VsbGVudCBleGVyY2lzZSBpcyB0byBwYWlyIHVwIHdpdGggYSBwYXJ0bmVyLCBwcmludAp0aGUgdHJlZSBvdXQgbGlrZSBiZWxvdywgYW5kIHRoZW4gZmluZCB0aGUgYnJhbmNoZXMgdXBvbiB3aGljaCBtdXRhdGlvbnMgbXVzdCBoYXZlCm9jY3VycmVkOgpgYGB7cn0KY2F0KCIxMDEgMjAzIiwgZmlsZSA9ICJzZWVkbXMiKSAgIyB0aGlzIHNldHMgdGhlIHNlZWQgZm9yIG1zCnN5c3RlbTIoY29tbWFuZCA9IG1zX2JpbmFyeSgpLCBhcmdzID0gIjEwIDEgLXMgNyAtVCIsIHN0ZG91dCA9ICJvdXQudHJlZSIpCmN0cmVlIDwtIHJlYWQudHJlZSgib3V0LnRyZWUiKSAKZ2d0cmVlKGN0cmVlLCBsYXlvdXQgPSAicmVjdGFuZ3VsYXIiKSArCiAgZ2VvbV90aXBsYWIoc2l6ZSA9IDUpCmBgYAoKSW5zdGVhZCBvZiB1c2luZyB0aGUgYC1zYCBvcHRpb24gdG8gc3BlY2lmeSB0aGUgZXhhY3QgbnVtYmVyIG9mIHNlZ3JlZ2F0aW5nIHNpdGVzLAp5b3UgY2FuIGFsc28gdXNlIHRoZSBgLXRgIG9wdGlvbiB0byBzcGVjaWZ5ICRcdGhldGEgPSA0TlxtdSBMJCB3aGVyZSAkXG51JCBpcyB0aGUgCnBlci1iYXNlLXBhaXIgcGVyLWdlbmVyYXRpb24gbXV0YXRpb24gcmF0ZSBhbmQgJEwkIGlzIHRoZSBsZW5ndGggb2YgdGhlIEROQSBzZXF1ZW5jZQppbiBudW1iZXIgb2YgYmFzZSBwYWlycy4K</div>
 
 
 </div>
