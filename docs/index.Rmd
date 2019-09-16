@@ -1,5 +1,6 @@
 ---
-title: "Detailed Explanations of SalarHybPower"
+title: "Hands On Exercises and Notebooks Accompanying Classes on the Coalescent for CSU Grad ConGen Fall 2019"
+author: "Eric C. Anderson"
 output: 
   html_document:
     toc: false
@@ -7,33 +8,15 @@ output:
 
 ---
 
-Here are links to a series of pages about the development and use of the 
-SalarHybPower R package.
-
-## Getting the repository
-
-To reproduce these analyses you need to 
-
-1. Get the repository at
-[https://github.com/eriqande/SalarHybPower](https://github.com/eriqande/SalarHybPower).  This 
-is still a private repo, but will be made public as soon as I learn that it is OK to release the 
-SNP array data that is in it.  
-2. That repo is an Rstudio project for an Rpackage.  Build the package.
-3. Run all the notebooks (and shell commands within them...) listed below from the 
-root directory of the repository.  
-
-Have fun. Questions to eric.anderson@noaa.gov
-
-## Preparing a "pseudo" linkage map
-
-- [dev-01-initial-data-maneuvers.nb.html](./dev-01-initial-data-maneuvers.nb.html) --- How I went about making a sex-averaged linkage map and "sprinkling" unmapped markers into it.  I was originally thinking I was going to write this to PLINK format, but discovered I could do things better and just as quickly in a tidy format.
+Here are links to a series of notebooks that should be helpful.
 
 
-## Actually doing the analyses for the paper
+- [000-prep-for-coalescent.nb.html](./000-prep-for-coalescent.nb.html) --- How to set
+up your R environment to make this work for you.
+- [001-exp-approx-to-geometric.nb.html](./001-exp-approx-to-geometric.nb.html) --- A simple exercise to compare the geometric and the exponential distributions.
+- [002-the-coalescent-and-demographic-scenarios.nb.html](./002-the-coalescent-and-demographic-scenarios.nb.html) --- Using `ms` to simulate some trees and look how their shapes
+differ under different scenarios of population structure and population size change, etc.
+- [003-infinite-sites-mutation.nb.html](./003-infinite-sites-mutation.nb.html) --- An
+introduction to mutations on the coalescent, with some little exercises to do in class, 
+and a segue into compatibility/the four gamete test.  
 
-- [doing-it-01-big-runs-newfoundland.nb.html](./doing-it-01-big-runs-newfoundland.nb.html) --- A notebook showing the steps taken to actually to the whole big run for the Newfoundland data set.
-- [doing-it-summarizing-newfoundland-big-runs.nb.html](./doing-it-summarizing-newfoundland-big-runs.nb.html) --- Summarizing
-the Newfoundland runs. Computing accuracy and efficiency and also computing ROC curves.
-- [doing-it-02-big-runs-maritimes.nb.html](./doing-it-02-big-runs-maritimes.nb.html) --- A notebook showing the steps taken to actually to the whole big run for the Maritimes data set.
-- [doing-it-summarizing-maritimes-big-runs.nb.html](./doing-it-summarizing-maritimes-big-runs.nb.html) --- Summarizing
-the Maritimes runs. Computing accuracy and efficiency and also computing ROC curves.
