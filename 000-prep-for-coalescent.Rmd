@@ -1,0 +1,95 @@
+---
+title: "Preparing for the Coalescent"
+output:
+  html_notebook:
+    toc: no
+  html_document:
+    df_print: paged
+    toc: no
+bibliography: references.bib
+---
+
+Next week we will be studying the coalescent process, a mathematical framework
+that is central to understanding the genetic variation that occurs in a genetic
+sample that you might collect from a population.
+
+We will spend some time simulating data from the coalescent process using 
+Dick Hudson's program `ms` [@hudsonGeneratingSamplesWright2002].  I have written
+a little R package called 'GSImulator' that has pre-compiled versions of `ms` for
+windows and Mac. It is easy to install 'GSImulator' using the 'devtools' package.
+
+To read in some trees from text files we will use the 'ape' package [@ape-package], and to plot
+them we will use the 'ggtree' package [@ggtree-package].  
+
+So, this week, I would like everyone to prepare their computers for these excercises.
+
+You should have installed:
+
+1. A recent version of R (> 3.5, say)
+2. RStudio (you don't have to use this, but it is a great IDE)
+
+Then, within R, you need to get some packages.
+
+**Important: when you are installing packages, and you are asked if you would
+like to update existing packages to later versions, then you should answer "No!"
+at least for the first time.  Chances are everything will work fine without
+spending a long time updating everything. **
+
+```{r, eval=FALSE}
+# if you don't already have the tidyverse:
+install.packages("tidyverse")
+
+# if you don't already have devtools
+install.packages("devtools")
+
+# now, get GSImulator from my GitHub page
+devtools::install_github("eriqande/GSImulator", dependencies = FALSE)
+
+# then get ape
+install.packages("ape")
+
+# and finally install ggtree from bioconductor
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("ggtree")
+
+# when it says: Update all/some/none? [a/s/n], your answer should be n
+```
+
+
+Once that is done, you can test that you have everything is working by running a few lines of code.
+First, load the libraries and make sure there are no glaring errors or failures:
+```{r}
+library(tidyverse)
+library(ape)
+library(ggtree)
+library(GSImulator)
+```
+
+Then test that we have `ms` working.
+If we invoke `ms` with no arguments it gives us a message about what kinds
+of arguments one can use.  When you give the following commands, you should
+get the output below:
+```{r}
+# ms_binary() gives the path to ms on your system
+system2(command = ms_binary(), args = "")
+```
+
+
+And try executing the following few lines of code that should produce a
+plot of a tree somewhat like the one below
+(though it may be different since you could be starting from different
+random seeds).
+```{r}
+system2(command = ms_binary(), args = "10 1 -T", stdout = "out.tree")
+ctree <- read.tree("out.tree") 
+ggtree(ctree, layout = "rectangular") +
+  geom_tiplab(size = 2) + coord_flip() + scale_x_reverse()
+```
+
+If you are having problems getting this working, please contact Eric Anderson at `eriq@rams.colostate.edu`.
+
+See you all on Tuesday.
+
+
+## References

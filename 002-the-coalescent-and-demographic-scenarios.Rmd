@@ -1,0 +1,162 @@
+---
+title: "The Coalescent with Population Structure and Demography, etc."
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+author: "Eric C. Anderson"
+bibliography: references.bib
+---
+
+
+
+
+
+## Using `ms` via GSImulator
+
+We are using `ms` this way because it is fairly easy to distribute the binaries
+in an R package.
+```{r}
+library(tidyverse)
+library(GSImulator)
+```
+
+`ms` is a coalescent simulator written in C by Dick Hudson at U Chicago.  It has
+been around for a long time, but a paper describing it came out long after it had 
+been in routine use [@hudsonGeneratingSamplesWright2002]
+
+
+It can be downloaded from [here](http://home.uchicago.edu/rhudson1/source/mksamples.html).  However, I have
+wrapped up compiled versions in an R package, so you needn't worry about that.
+
+
+It is quite fast for simulating small segments of 
+DNA without much recombination.  It is worth noting, however, that 
+a more recent program that implements the whole process more efficiently
+is available and much better for whole-genome-scale simulation [@kelleherEfficientCoalescentSimulation2016].
+
+### Running `ms` within R with the system2 command
+
+`ms` is a program that runs in the shell.  Here we use R's `system2()` command to run it
+from within R.
+
+If we invoke `ms` with no arguments it gives us a message about what kinds
+of arguments one can use:
+```{r}
+# ms_binary() gives the path to ms on your system
+system2(command = ms_binary(), args = "")
+```
+
+That shows a lot of fun things to do.  Let's start by just simulating coalescent 
+trees and looking at them.  In order to do that, you will need to install another
+couple packages if you don't already have them.  See `000-prep-for-coalescent.Rmd`.
+
+Load the other packages we will use:
+```{r}
+
+library(ape)
+library(ggtree)
+```
+
+
+### A basic vanilla tree
+
+Here we simulate a single tree with 10 tips and tell `ms` to just print the tree out
+in Newick format:
+```{r}
+system2(command = ms_binary(), args = "10 1 -T")
+```
+
+Cool.  Now, we can redirect that output into a file, read it in and plot
+a tree.
+```{r}
+system2(command = ms_binary(), args = "10 1 -T", stdout = "out.tree")
+ctree <- read.tree("out.tree") 
+ggtree(ctree, layout = "rectangular") +
+  geom_tiplab(size = 4) + coord_flip() + scale_x_reverse()
+```
+
+OK, that is pretty cool and easy.
+
+### Multiple trees
+
+One characteristic of the coalescent process is its variability.  Here
+we simulate 12 different trees (each with 10 tips) and plot
+them to appreciate how variable
+trees can be, even if simulated from the same neutral process.
+
+We plot the trees with tips to the right, since it is easier to see them
+that way.
+```{r}
+system2(command = ms_binary(), args = "10 12 -T", stdout = "out.tree")
+ctree <- read.tree("out.tree")
+names(ctree) <- 1:12
+ggtree(ctree, layout = "rectangular") +
+  facet_wrap(~.id, ncol  = 3) +
+  geom_tiplab(size = 3)
+  
+
+```
+
+### Population structure 
+
+Let's do two populations, each of 10 chromosomes ($2N = 10$), and let the migration
+rate be quite low.  Like $4Nm = 0.01$, to see what we get.  Let's do 6 reps:
+```{r}
+system2(command = ms_binary(), args = "20 6 -T -I 2 10 10 0.01", stdout = "out.tree")
+ctree <- read.tree("out.tree")
+names(ctree) <- 1:6
+ggtree(ctree, layout = "rectangular") +
+  facet_wrap(~.id, ncol  = 3) +
+  geom_tiplab(size = 2)
+```
+
+OK, at such low migration rates, we see that all 10 gene copies in each population have,
+almost without exception, coalesced with one another before coalescing with any genes from
+the other population.  
+
+That is not the always the case when migration rate gets higher, for example $4Nm = 0.2$.  
+```{r}
+system2(command = ms_binary(), args = "20 6 -T -I 2 10 10 0.2", stdout = "out.tree")
+ctree <- read.tree("out.tree")
+names(ctree) <- 1:6
+ggtree(ctree, layout = "rectangular") +
+  facet_wrap(~.id, ncol  = 3) +
+  geom_tiplab(size = 2)
+```
+
+By taking the limit as the mutation rate goes to zero, Monty Slatkin, showed
+that the parameter $F_\mathrm{ST}$ can be defined in terms of expected coalescent 
+times between pairs of genes drawn within and between different populations. 
+$$
+F_\mathrm{ST} = \frac{\bar{t} - \bar{t}_0}{\bar{t}}
+$$
+where $\bar{t}_0$ is the expected coalescence time between two genes drawn at random
+from within subpopulations and $\bar{t}$ is the expected coalescence time for two gene
+copies drawn at random from amongst all those in either subpopulation [@slatkinInbreedingCoefficientsCoalescence2007].
+
+### Population growth
+
+Pop growth can stretch trees out.  If a population is growing exponentially
+then the terminal branches tend to be longer.  Let's experiment with that.
+Note that time is measured in units of $4N_0$.  
+```{r}
+system2(command = ms_binary(), args = "10 6 -T -G 50", stdout = "out.tree")
+ctree <- read.tree("out.tree")
+names(ctree) <- 1:6
+ggtree(ctree, layout = "rectangular") +
+  facet_wrap(~.id, ncol  = 3) +
+  geom_tiplab(size = 2)
+```
+Yep, long terminal branches.
+
+### Population Splitting/Merging
+
+
+
+
+
+
+## References
+
+

@@ -1,0 +1,62 @@
+---
+title: "Approximating Geometric Distributions with the exponential distribution"
+output: 
+  html_notebook:
+    toc: false
+author: "Eric C. Anderson"
+---
+
+
+
+
+
+Here is some code that you can use to explore how similar the exponential
+distribution is to the geometric distribution.  Recall that it is easy
+to show in a Wright Fisher population of $N$ diploids (i.e., with $2N$
+gene copies), that the probability that a pair of genes have a common
+ancestor $t$ generations in the past is 
+$$
+\biggl(1 - \frac{1}{2N}\biggr)^{t-1} \frac{1}{2N}
+$$
+Let's make a function that computes that for $N$ and different values of $t$:
+```{r}
+G <- function(N, t) {
+  (1 - (1 / (2 * N)))^(t - 1) * (1 / (2 * N) )
+}
+```
+Then let's look at those values for, say $t=1,\ldots,50$ when $N=30$:
+```{r}
+t <- 1:50
+plot(t, G(30, t))
+```
+
+That defines the geometric distribution, which takes discrete values on $1,2,\ldots$.
+
+Now, remember how we said that a reasonable approximation to those values can be found
+with the exponential distribution, which also allows for real numbers.  Here is a function
+that defines the approximating exponential distribution:
+$$
+\frac{1}{2N} e^{-\frac{t}{2N}}
+$$
+```{r}
+E <- function(N, t) {
+  (1 / (2 * N)) * exp(-t / (2 * N))
+}
+```
+
+And here we plot it in blue on top of the geometric distribution for $N=30$:
+```{r}
+plot(t, G(30, t))
+lines(t, E(30, t), col = "blue")
+```
+
+That is pretty close, even for an $N$ as low as 30.  How about for a much larger $N$,
+like 300?
+```{r}
+t <- 1:100
+plot(t, G(300, t), cex = 0.5)
+lines(t, E(300, t), col = "blue")
+```
+
+The approximation is close enough that it is almost impossible to see the blue line.
+

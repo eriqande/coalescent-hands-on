@@ -1,0 +1,50 @@
+---
+title: "Infinite Sites Mutation"
+output: 
+  html_notebook:
+    toc: true
+    toc_float: true
+author: "Eric C. Anderson"
+bibliography: references.bib
+---
+
+
+```{r}
+library(tidyverse)
+library(GSImulator)
+library(ape)
+library(ggtree)
+
+```
+
+`ms` will simulate infinite sites mutation very readily.  There are two
+options.  
+
+First we can tell it to simulate an exact number of segregating sites (like 7, for
+example):
+```{r}
+
+cat("101 203", file = "seedms")  # this sets the seed for ms
+system2(command = ms_binary(), args = "10 1 -s 7 -T")
+```
+
+Notice that the samples can be thought of as being labeled 1--10, and the mutations
+can be thought of as being labeled 1--7.  Each line like 0010010 is an individual
+gene sequence sample.  A 1 means it inherited the mutation, and a 0 means it inherited
+the non-mutated base.
+
+That being the case, an excellent exercise is to pair up with a partner, print
+the tree out like below, and then find the branches upon which mutations must have
+occurred:
+```{r}
+cat("101 203", file = "seedms")  # this sets the seed for ms
+system2(command = ms_binary(), args = "10 1 -s 7 -T", stdout = "out.tree")
+ctree <- read.tree("out.tree") 
+ggtree(ctree, layout = "rectangular") +
+  geom_tiplab(size = 5)
+```
+
+Instead of using the `-s` option to specify the exact number of segregating sites,
+you can also use the `-t` option to specify $\theta = 4N\mu L$ where $\nu$ is the 
+per-base-pair per-generation mutation rate and $L$ is the length of the DNA sequence
+in number of base pairs.
