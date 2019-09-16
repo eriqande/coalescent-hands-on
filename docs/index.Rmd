@@ -14,7 +14,7 @@ Here are links to a series of notebooks that should be helpful.
 - [000-prep-for-coalescent.nb.html](./000-prep-for-coalescent.nb.html) --- How to set
 up your R environment to make this work for you.
 - [001-exp-approx-to-geometric.nb.html](./001-exp-approx-to-geometric.nb.html) --- A simple exercise to compare the geometric and the exponential distributions.
-- [002-the-coalescent-and-demographic-scenarios.nb.html](./002-the-coalescent-and-demographic-scenarios.nb.html) --- Using `ms` to simulate some trees and look how their shapes
+- [002-the-coalescent-and-demographic-scenarios.nb.html](./002-the-coalescent-and-demographic-scenarios.nb.html) --- Using `ms` to simulate some trees and see how their shapes
 differ under different scenarios of population structure and population size change, etc.
 - [003-infinite-sites-mutation.nb.html](./003-infinite-sites-mutation.nb.html) --- An
 introduction to mutations on the coalescent, with some little exercises to do in class, 
