@@ -4,3 +4,7 @@
 .DS_Store
 out.tree
 seedms
+000-prep-for-coalescent.nb.html
+001-exp-approx-to-geometric.nb.html
+002-the-coalescent-and-demographic-scenarios.nb.html
+003-infinite-sites-mutation.nb.html
