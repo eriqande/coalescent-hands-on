@@ -7,6 +7,9 @@ author: "Eric C. Anderson"
 ---
 
 
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
 
 
 
@@ -26,8 +29,14 @@ G <- function(N, t) {
 ```
 Then let's look at those values for, say $t=1,\ldots,50$ when $N=30$:
 ```{r}
-t <- 1:50
-plot(t, G(30, t))
+geomet <- tibble(
+  t = 1:50,
+  prob = G(30, 1:50)
+)
+
+ggplot(geomet, aes(x = t, y = prob)) +
+  geom_col(colour = "black", fill = "white", size = 0.2) +
+  theme_bw()
 ```
 
 That defines the geometric distribution, which takes discrete values on $1,2,\ldots$.
@@ -46,17 +55,22 @@ E <- function(N, t) {
 
 And here we plot it in blue on top of the geometric distribution for $N=30$:
 ```{r}
-plot(t, G(30, t))
-lines(t, E(30, t), col = "blue")
+expy <- tibble(
+  t = 1:50,
+  density = E(30, 1:50)
+)
+
+ggplot() +
+  geom_col(data = geomet, aes(x = t, y = prob), 
+           colour = "black", fill = "white", size = 0.2) +
+  geom_line(data = expy, aes(x = t, y = density), colour = "blue") +
+  theme_bw()
+
 ```
 
-That is pretty close, even for an $N$ as low as 30.  How about for a much larger $N$,
-like 300?
-```{r}
-t <- 1:100
-plot(t, G(300, t), cex = 0.5)
-lines(t, E(300, t), col = "blue")
-```
+That is pretty darn close, even for an $N$ as small as 30. And the approximation gets
+better as $N$ gets larger....
 
-The approximation is close enough that it is almost impossible to see the blue line.
+
+
 
