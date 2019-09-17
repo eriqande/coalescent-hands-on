@@ -99,6 +99,25 @@ ggtree(ctree, layout = "rectangular") +
 
 ### Population structure 
 
+The standard coalescent can easily be updated to include population structure.  Basically,
+at the time of sampling (i.e., "the present"), you specify that your samples are from $K$
+different populations.  This is done with the `-I` flag.  For example, `-I 20 30` means that
+the first 20 (haploid) samples are from the first population, and the next 30 are from the second
+population.  Note that the nsam parameter (number of samples) must be 50 - 20 + 30 in that case.
+
+After the `-I 20 30` you then give a number which is the _population scaled migration rate_, $4Nm$, 
+where $m$ in the per-generation probability that a parent in the population is an
+immigrant from a different population.  (You can actually specify a whole migration matrix if you
+want, but we won't worry about that now.)  You can specify an arbitrary number of populations,
+but we will only ever focus on two of them.  
+
+What does the coalescent with migration look like? When everyone gets down to this
+point, ask Eric, and he will show you with a small example.  
+
+Think about this: what does $4Nm$ mean in terms of how many migrational events you would
+expect to see in the history of a pair of gene copies? And why? (Once again, think of 
+each branch as a bead-string of generations...)
+
 Let's do two populations, each of 10 chromosomes ($2N = 10$), and let the migration
 rate be quite low.  Like $4Nm = 0.01$, to see what we get.  Let's do 6 reps:
 ```{r}
@@ -136,18 +155,51 @@ copies drawn at random from amongst all those in either subpopulation [@slatkinI
 
 ### Population growth
 
+As the manual for `ms` notes, "The switch `-G` [used like `ms nsam nreps -t 4 -G a`] is used to specify that the population has been growing (or shrinking) exponentially. That is, the population size at time $t$ in the past is given by: $N(t) = N_0 \exp^{-at}$, where $t$ is the time before the present, measured in units of $4N_0$ generations." Note that $N_0$ is the size of the population at the time of sampling. So, if $a>0$ it means the population was smaller further back in time.
+
+Let's make some plots to grok out what this means. First, let's pretend that we are thinking about a
+population that, at the time of sampling is of size $N_0 = 10,000$.  And so, if we were interested in
+what its population size was, say 34,000 generations ago, then that would mean that time, measured in units
+of $4N_0$ generations would be:
+$$
+t = \frac{34,000}{4N_0} = \frac{34,000}{40,0000} \approx 0.85
+$$
+
+So, let's make a picture of what the population size looks like at different times going back in the past.
+You can play with the values of `N_0` and `a` below to see what you get 
+```{r}
+# define parameter values
+N_0 <- 10000
+a = 5
+
+# make a tibble of different values at different times
+ptib <- tibble(
+  generations = seq(0, 5 * N_0, by = N_0 / 100)
+) %>% 
+  mutate(t = generations / (4 * N_0),
+         Nt = N_0 * exp(-t * a)
+         )
+
+# make a plot
+ggplot(ptib, aes(x = generations, y = Nt)) +
+  geom_line() +
+  scale_x_continuous("Time in generations", sec.axis = sec_axis(~ . / (4 * N_0), name = "Time in 4N_0 generations" ))
+
+```
+
 Pop growth can stretch trees out.  If a population is growing exponentially
 then the terminal branches tend to be longer.  Let's experiment with that.
-Note that time is measured in units of $4N_0$.  
+Note that, as always in `ms` time is measured in units of $4N_0$.  
 ```{r}
-system2(command = ms_binary(), args = "10 6 -T -G 50", stdout = "out.tree")
+system2(command = ms_binary(), args = "10 6 -T -G .055", stdout = "out.tree")
 ctree <- read.tree("out.tree")
 names(ctree) <- 1:6
 ggtree(ctree, layout = "rectangular") +
   facet_wrap(~.id, ncol  = 3) +
   geom_tiplab(size = 2)
 ```
-Yep, long terminal branches.
+Yep, long terminal branches. Play around with different settings and check out the
+results.
 
 ### Population Splitting/Merging
 
