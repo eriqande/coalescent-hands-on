@@ -81,7 +81,8 @@ plot of a tree somewhat like the one below
 (though it may be different since you could be starting from different
 random seeds).
 ```{r}
-system2(command = ms_binary(), args = "10 1 -T", stdout = "out.tree")
+# note that we add  stderr = FALSE to the following command because of a bug in R 3.5.1
+system2(command = ms_binary(), args = "10 1 -T", stdout = "out.tree", stderr = FALSE)
 ctree <- read.tree("out.tree") 
 ggtree(ctree, layout = "rectangular") +
   geom_tiplab(size = 2) + coord_flip() + scale_x_reverse()

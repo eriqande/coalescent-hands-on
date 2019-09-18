@@ -69,7 +69,7 @@ system2(command = ms_binary(), args = "10 1 -T")
 Cool.  Now, we can redirect that output into a file, read it in and plot
 a tree.
 ```{r}
-system2(command = ms_binary(), args = "10 1 -T", stdout = "out.tree")
+system2(command = ms_binary(), args = "10 1 -T", stdout = "out.tree", stderr = FALSE)
 ctree <- read.tree("out.tree") 
 ggtree(ctree, layout = "rectangular") +
   geom_tiplab(size = 3) + coord_flip() + scale_x_reverse()
@@ -87,7 +87,7 @@ trees can be, even if simulated from the same neutral process.
 We plot the trees with tips to the right, since it is easier to see them
 that way.
 ```{r}
-system2(command = ms_binary(), args = "10 12 -T", stdout = "out.tree")
+system2(command = ms_binary(), args = "10 12 -T", stdout = "out.tree", stderr = FALSE)
 ctree <- read.tree("out.tree")
 names(ctree) <- 1:12
 ggtree(ctree, layout = "rectangular") +
@@ -121,7 +121,7 @@ each branch as a bead-string of generations...)
 Let's do two populations, each of 10 chromosomes ($2N = 10$), and let the migration
 rate be quite low.  Like $4Nm = 0.01$, to see what we get.  Let's do 6 reps:
 ```{r}
-system2(command = ms_binary(), args = "20 6 -T -I 2 10 10 0.01", stdout = "out.tree")
+system2(command = ms_binary(), args = "20 6 -T -I 2 10 10 0.01", stdout = "out.tree", stderr = FALSE)
 ctree <- read.tree("out.tree")
 names(ctree) <- 1:6
 ggtree(ctree, layout = "rectangular") +
@@ -135,7 +135,7 @@ the other population.
 
 That is not the always the case when migration rate gets higher, for example $4Nm = 0.2$.  
 ```{r}
-system2(command = ms_binary(), args = "20 6 -T -I 2 10 10 0.2", stdout = "out.tree")
+system2(command = ms_binary(), args = "20 6 -T -I 2 10 10 0.2", stdout = "out.tree", stderr = FALSE)
 ctree <- read.tree("out.tree")
 names(ctree) <- 1:6
 ggtree(ctree, layout = "rectangular") +
@@ -191,7 +191,7 @@ Pop growth can stretch trees out.  If a population is growing exponentially
 then the terminal branches tend to be longer.  Let's experiment with that.
 Note that, as always in `ms` time is measured in units of $4N_0$.  
 ```{r}
-system2(command = ms_binary(), args = "10 6 -T -G .055", stdout = "out.tree")
+system2(command = ms_binary(), args = "10 6 -T -G .055", stdout = "out.tree", stderr = FALSE)
 ctree <- read.tree("out.tree")
 names(ctree) <- 1:6
 ggtree(ctree, layout = "rectangular") +
