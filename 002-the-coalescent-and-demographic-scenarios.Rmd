@@ -187,9 +187,9 @@ ggplot(ptib, aes(x = generations, y = Nt)) +
 
 ```
 
-Pop growth can stretch trees out.  If a population is growing exponentially
+Population growth can stretch trees out.  If a population is growing exponentially
 then the terminal branches tend to be longer.  Let's experiment with that.
-Note that, as always in `ms` time is measured in units of $4N_0$.  
+Note that, as always, in `ms` time is measured in units of $4N_0$.  
 ```{r}
 system2(command = ms_binary(), args = "10 6 -T -G .055", stdout = "out.tree", stderr = FALSE)
 ctree <- read.tree("out.tree")
@@ -198,12 +198,101 @@ ggtree(ctree, layout = "rectangular") +
   facet_wrap(~.id, ncol  = 3) +
   geom_tiplab(size = 2)
 ```
-Yep, long terminal branches. Play around with different settings and check out the
+Yep, somewhat longer terminal branches. Play around with different settings and check out the
 results.
+
+### Instantaneous population size changes
+
+Past changes in the populations are controlled by values `-eSomething` options.  Where
+the e stands for event.  The simplest of these are instantaneous changes in population
+size.  The simplest is:
+
+* `-en t i x` which means "Set subpop $i$ size to $x times N0$ at time $t$ and growth rate to zero.
+
+So, for example, in our migration model above we could make the two populations very different sizes
+and see what the results are.  Let's make population 2 ten times bigger than population 1 from
+the present all the way back into the past...
+```{r}
+system2(command = ms_binary(), args = "20 6 -T -I 2 10 10 0.01 -en 0 2 10", stdout = "out.tree", stderr = FALSE)
+ctree <- read.tree("out.tree")
+names(ctree) <- 1:6
+ggtree(ctree, layout = "rectangular") +
+  facet_wrap(~.id, ncol  = 3) +
+  geom_tiplab(size = 2)
+```
+
+Aha! That is interesting.  It is hard to tell, because the coalescence times are so short in population
+1, but if you squint, you can convince yourself that, on average, the trees in population 2 reach 
+a MRCA in about 10 times the amount of time as the trees in population 1.
+
+The results also show that there is a lot of variability in the coalescent process.
+
+
+
 
 ### Population Splitting/Merging
 
+My goodness, there are a lot of options in `ms`.  To see the full rundown on all the options,
+you can read the full documentation: [msdoc.pdf](./msdoc.pdf).  But for now, we will
+just discuss one more, used to join or split two populations going back in time.
 
+* `-ej t i j` which means move all lineages in subpopulation $i$ into subpopulation $j$ at time $t$
+in units of $4N_0$.  The `j` means "join".  It corresponds to populations "joining" while going
+backward in time.  But, _forward in time_ this corresponds to poupulation _splitting_.\
+
+* `-es t i p` which means split subpopulatin $i$ into two subpopulations $i$ and $npop + 1$ $t$
+(in units of $4N_0$). Lineages currently in $i$ remain in $i$ with probability $p$ and
+with probability $1-p$ they get placed into subpopulation $npop + 1$. The `s` means split.  
+It corresponds to populations "joining" while going forward in time.
+
+**Discuss with your partner**: What are some conservation-genetic scenarios that
+these last two demographic scenarios might correspond to?
+
+Here is an example of a population join going back in time.  We have 10 samples from
+each population with no migration between them, and the populations join at time $2N_0$ in the 
+past (at which point most will have coalesced within subpopulations):
+
+```{r}
+system2(command = ms_binary(), args = "20 6 -T -I 2 10 10 0.00 -ej 0.5 1 2", stdout = "out.tree", stderr = FALSE)
+ctree <- read.tree("out.tree")
+names(ctree) <- 1:6
+ggtree(ctree, layout = "rectangular") +
+  facet_wrap(~.id, ncol  = 3) +
+  geom_tiplab(size = 2)
+```
+
+## Your Mission/Homework!
+
+All right, after playing around with all the above, look at the tree below and, with your
+partner:
+
+1. think about and discuss what the demography might have looked like to produce the tree.
+Think about how different population sizes must have been and at which time periods population
+size changes might have happened.  
+
+2. Check your hypotheses by generating some trees with `ms`.
+
+3. Hand in:  Write down verbal model of the population demography, and then
+submit your R code and the figure of trees you made.
+
+Here is a hint.  To make the trees below, I didn't bother with exponential
+growth, I just used (quite unrealistic) instantaneous population size changes.
+
+```{r, echo=FALSE}
+# Two subpopulations.  The first one of size N0.  We want to expect
+# TMRCA for that one to be X = 4N0.  For subpop 2 we want to expect only
+# one coalescence by 5X.  10 lineages in each subpopulation, so n(n-1) is
+# 90.  That means subpop 2 must be 450 times bigger than subpop 1.  At time
+# 5X we join subpops 1 and 2, and set the size of the merged population to
+# N0 so we have the same expected time to MRCA as we did with subpop 1 in the
+# beginning.
+system2(command = ms_binary(), args = "20 6 -T -I 2 10 10 0.00 -en 0 2 450 -ej 20 2 1 -en 20.001 1 1  ", stdout = "out.tree", stderr = FALSE)
+ctree <- read.tree("out.tree")
+names(ctree) <- 1:6
+ggtree(ctree, layout = "rectangular") +
+  facet_wrap(~.id, ncol  = 3) +
+  geom_tiplab(size = 2)
+```
 
 
 
