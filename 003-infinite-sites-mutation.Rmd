@@ -32,10 +32,12 @@ can be thought of as being labeled 1--7.  Each line like 0010010 is an individua
 gene sequence sample.  A 1 means it inherited the mutation, and a 0 means it inherited
 the non-mutated base.
 
-That being the case, an excellent exercise is to pair up with a partner, print
-the tree out like below, and then find the branches upon which mutations must have
-occurred:
-```{r}
+## In class exercise 1
+
+Pair up with your partner. Each group will be assigned a site (i.e. 
+a mutation).  Figure out which branch in the tree below that mutation must have occurred.  Each
+group will then stick their mutation to their branch with some tape.
+```{r echo=FALSE}
 cat("101 203", file = "seedms")  # this sets the seed for ms
 system2(command = ms_binary(), args = "10 1 -s 7 -T", stdout = "out.tree", stderr = FALSE)
 ctree <- read.tree("out.tree") 
@@ -43,7 +45,35 @@ ggtree(ctree, layout = "rectangular") +
   geom_tiplab(size = 5)
 ```
 
+
+## In class excerise 2
+
+This exercise will get us thinking about what is called the 
+"four-gamete test".  Each group will take their site and one other site
+that they can choose from amongst the 7, and count up the number of
+different pairs of mutations at the two sites are found by looking at the 
+segretating sites output above, and then write that on the board.  
+For example, for sites 1 and 2 the result that gets written on the board should
+look like:
+
+  Pair  |   n 
+--------|----
+00 | 5
+01 | 4
+10 | 1
+
+Each group will do this with two pairs of sites.  For example, if your
+group is assigned site 1, you might to it for sites 1 and 2 and sites 1 and 5.
+
+Write each little table on the board with a title like "Sites 1,2" above each.
+When that is done, we will talk about it.
+
+
+
+### Sprinkling mutations at rate $\theta = 4N\mu$
+
 Instead of using the `-s` option to specify the exact number of segregating sites,
 you can also use the `-t` option to specify $\theta = 4N\mu L$ where $\nu$ is the 
 per-base-pair per-generation mutation rate and $L$ is the length of the DNA sequence
-in number of base pairs.
+in number of base pairs.  Under the infinite sites model, each mutation is an entirely
+novel mutation.
