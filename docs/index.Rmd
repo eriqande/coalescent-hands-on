@@ -19,4 +19,7 @@ differ under different scenarios of population structure and population size cha
 - [003-infinite-sites-mutation.nb.html](./003-infinite-sites-mutation.nb.html) --- An
 introduction to mutations on the coalescent, with some little exercises to do in class, 
 and a segue into compatibility/the four gamete test.  
+- [004-one-dimensional-SFS.nb.html](./004-one-dimensional-SFS.nb.html) --- A chance
+to generate one-dimensional site frequency spectra from the coalescent under different
+demographic scenarios and witness the results.
 
