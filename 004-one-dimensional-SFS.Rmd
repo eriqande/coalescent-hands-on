@@ -46,7 +46,7 @@ NumSam <- 50 # number of haploid chromosomes
 # here are the unnormalized fractions we expect to find
 fracts <-  1 / 1:(NumSam - 1)
 
-# normalize so the sum to one, the multiply by NumSNPs
+# normalize so they sum to one, the multiply by NumSNPs
 Sin <- NumSNPs * fracts / sum(fracts)
 
 # let's plot that:

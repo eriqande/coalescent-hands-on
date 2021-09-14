@@ -104,7 +104,7 @@ at the time of sampling (i.e., "the present"), you specify that your samples are
 different populations.  This is done with the `-I` flag.  For example, `-I 2 20 30` means that
 there are 2 subpopulations with
 the first 20 (haploid) samples from the first subpopulation, and the next 30 from the second
-subpopulation.  Note that the nsam parameter (number of samples) must be 50 - 20 + 30 in that case.
+subpopulation.  Note that the nsam parameter (number of samples) must be 50 = 20 + 30 in that case.
 
 After the `-I 2 20 30` you then give a number which is the _population scaled migration rate_, $4Nm$, 
 where $m$ in the per-generation probability that a parent in the population is an
