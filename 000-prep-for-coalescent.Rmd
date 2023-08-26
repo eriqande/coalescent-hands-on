@@ -9,7 +9,7 @@ output:
 bibliography: references.bib
 ---
 
-Next week we will be studying the coalescent process, a mathematical framework
+We will be studying the coalescent process, a mathematical framework
 that is central to understanding the genetic variation that occurs in a genetic
 sample that you might collect from a population.
 
