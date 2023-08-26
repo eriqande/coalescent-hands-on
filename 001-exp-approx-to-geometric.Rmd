@@ -35,7 +35,7 @@ geomet <- tibble(
 )
 
 ggplot(geomet, aes(x = t, y = prob)) +
-  geom_col(colour = "black", fill = "white", size = 0.2) +
+  geom_col(colour = "black", fill = "white", linewidth = 0.2) +
   theme_bw()
 ```
 
@@ -62,7 +62,7 @@ expy <- tibble(
 
 ggplot() +
   geom_col(data = geomet, aes(x = t, y = prob), 
-           colour = "black", fill = "white", size = 0.2) +
+           colour = "black", fill = "white", linewidth = 0.2) +
   geom_line(data = expy, aes(x = t, y = density), colour = "blue") +
   theme_bw()
 

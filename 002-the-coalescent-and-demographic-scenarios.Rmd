@@ -26,7 +26,8 @@ been around for a long time, but a paper describing it came out long after it ha
 been in routine use [@hudsonGeneratingSamplesWright2002]
 
 
-It can be downloaded from [here](http://home.uchicago.edu/rhudson1/source/mksamples.html).  However, I have
+It can be downloaded from [here](http://home.uchicago.edu/rhudson1/source/mksamples.html).
+However, I have
 wrapped up compiled versions in an R package, so you needn't worry about that.
 
 
@@ -49,7 +50,7 @@ system2(command = ms_binary(), args = "")
 
 That shows a lot of fun things to do.  Let's start by just simulating coalescent 
 trees and looking at them.  In order to do that, you will need to install another
-couple packages if you don't already have them.  See `000-prep-for-coalescent.Rmd`.
+couple packages if you don't already have them.  See the instructions at: [https://eriqande.github.io/coalescent-hands-on/000-prep-for-coalescent.nb.html](https://eriqande.github.io/coalescent-hands-on/000-prep-for-coalescent.nb.html).
 
 Load the other packages we will use:
 ```{r, message=FALSE, warning=FALSE}
@@ -66,16 +67,41 @@ in Newick format:
 system2(command = ms_binary(), args = "10 1 -T")
 ```
 
-Cool.  Now, we can redirect that output into a file, read it in and plot
+The resulting coalescent tree is written out above in "Newick" format, which is
+named after a restaurant ("Newick's") in New Hampshire where a group of phylogeneticist's
+sketched it out on a napkin.
+
+It shows the branch tip numbers and the patterns in which
+branches in a tree join one another.  It also shows the branch
+lengths in units of time.
+
+In trees made by `ms`, the branch lengths are coalescence times are
+in units of $4N$ generations.  So an `ms` time of 0.5 is the expected
+coalescence time of a single pair of lineages.
+
+
+
+Cool.  Now, we can redirect that sort of output into a file, read it in and plot
 a tree.
 ```{r}
 system2(command = ms_binary(), args = "10 1 -T", stdout = "out.tree", stderr = FALSE)
 ctree <- read.tree("out.tree") 
 ggtree(ctree, layout = "rectangular") +
-  geom_tiplab(size = 3) + coord_flip() + scale_x_reverse()
+  geom_tiplab(size = 3) + coord_flip() + scale_x_reverse() 
 ```
 
-OK, that is pretty cool and easy.
+Note that from here on out, we are going to flip our trees sideways, since it is a little
+easier to plot them that way with ggtree.  Like this:
+```{r}
+p <- ggtree(ctree, layout = "rectangular") +
+  geom_tiplab(size = 3) +
+  theme_tree2()
+revts(p)
+```
+
+We also put a "timeline" on that one so that the units of time can be visualized.
+In this case, time going backwards is depicted as negative.
+
 
 ### Multiple trees
 
@@ -84,8 +110,6 @@ we simulate 12 different trees (each with 10 tips) and plot
 them to appreciate how variable
 trees can be, even if simulated from the same neutral process.
 
-We plot the trees with tips to the right, since it is easier to see them
-that way.
 ```{r}
 system2(command = ms_binary(), args = "10 12 -T", stdout = "out.tree", stderr = FALSE)
 ctree <- read.tree("out.tree")
@@ -93,7 +117,6 @@ names(ctree) <- 1:12
 ggtree(ctree, layout = "rectangular") +
   facet_wrap(~.id, ncol  = 3) +
   geom_tiplab(size = 2)
-  
 
 ```
 
@@ -110,7 +133,7 @@ After the `-I 2 20 30` you then give a number which is the _population scaled mi
 where $m$ in the per-generation probability that a parent in the population is an
 immigrant from a different population.  (You can actually specify a whole migration matrix if you
 want, but we won't worry about that now.)  You can specify an arbitrary number of populations,
-but we will only ever focus on two of them.  
+but we will only focus on two of them in this notebook.  
 
 What does the coalescent with migration look like? When everyone gets down to this
 point, ask Eric, and he will show you with a small example.  
@@ -145,7 +168,7 @@ ggtree(ctree, layout = "rectangular") +
 ```
 
 By taking the limit as the mutation rate goes to zero, Monty Slatkin, showed
-that the parameter $F_\mathrm{ST}$ can be defined in terms of expected coalescent 
+that the parameter $F_\mathrm{ST}$ can be defined in terms of the expected coalescent 
 times between pairs of genes drawn within and between different populations. 
 $$
 F_\mathrm{ST} = \frac{\bar{t} - \bar{t}_0}{\bar{t}}
@@ -190,21 +213,20 @@ ggplot(ptib, aes(x = generations, y = Nt)) +
 
 Population growth can stretch trees out.  If a population is growing exponentially
 then the terminal branches tend to be longer.  Let's experiment with that.
-Note that, as always, in `ms` time is measured in units of $4N_0$.  
 ```{r}
-system2(command = ms_binary(), args = "10 6 -T -G .055", stdout = "out.tree", stderr = FALSE)
+system2(command = ms_binary(), args = "10 6 -T -G 5", stdout = "out.tree", stderr = FALSE)
 ctree <- read.tree("out.tree")
 names(ctree) <- 1:6
 ggtree(ctree, layout = "rectangular") +
   facet_wrap(~.id, ncol  = 3) +
   geom_tiplab(size = 2)
 ```
-Yep, somewhat longer terminal branches. Play around with different settings and check out the
+Yep, longer terminal branches. Play around with different settings and check out the
 results.
 
 ### Instantaneous population size changes
 
-Past changes in the populations are controlled by values `-eSomething` options.  Where
+Past changes in the populations are controlled by values of `-eSomething` options.  Where
 the e stands for event.  The simplest of these are instantaneous changes in population
 size.  The simplest is:
 
@@ -234,14 +256,14 @@ The results also show that there is a lot of variability in the coalescent proce
 ### Population Splitting/Merging
 
 My goodness, there are a lot of options in `ms`.  To see the full rundown on all the options,
-you can read the full documentation: [msdoc.pdf](./msdoc.pdf).  But for now, we will
+you can read the full documentation: [msdoc.pdf](https://eriqande.github.io/coalescent-hands-on/msdoc.pdf).  But for now, we will
 just discuss one more, used to join or split two populations going back in time.
 
 * `-ej t i j` which means move all lineages in subpopulation $i$ into subpopulation $j$ at time $t$
 in units of $4N_0$.  The `j` means "join".  It corresponds to populations "joining" while going
-backward in time.  But, _forward in time_ this corresponds to poupulation _splitting_.\
+backward in time.  But, _forward in time_ this corresponds to population _splitting_.\
 
-* `-es t i p` which means split subpopulatin $i$ into two subpopulations $i$ and $npop + 1$ $t$
+* `-es t i p` which means split subpopulation $i$ into two subpopulations $i$ and $npop + 1$ $t$
 (in units of $4N_0$). Lineages currently in $i$ remain in $i$ with probability $p$ and
 with probability $1-p$ they get placed into subpopulation $npop + 1$. The `s` means split.  
 It corresponds to populations "joining" while going forward in time.
@@ -265,7 +287,7 @@ ggtree(ctree, layout = "rectangular") +
 ## Your Mission/Homework!
 
 All right, after playing around with all the above, look at the tree below and, with your
-partner:
+group:
 
 1. think about and discuss what the demography might have looked like to produce the tree.
 Think about how different population sizes must have been and at which time periods population
@@ -273,8 +295,6 @@ size changes might have happened.
 
 2. Check your hypotheses by generating some trees with `ms`.
 
-3. Hand in:  Write down verbal model of the population demography, and then
-submit your R code and the figure of trees you made.
 
 Here is a hint.  To make the trees below, I didn't bother with exponential
 growth, I just used (quite unrealistic) instantaneous population size changes.

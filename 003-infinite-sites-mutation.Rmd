@@ -32,10 +32,10 @@ can be thought of as being labeled 1--7.  Each line like 0010010 is an individua
 gene sequence sample.  A 1 means it inherited the mutation, and a 0 means it inherited
 the non-mutated base.
 
-## In class exercise 1
+## In class exercise 1 with 7 groups
 
-Pair up with your partner. Each group will be assigned a site (i.e. 
-a mutation).  Figure out which branch in the tree below that mutation must have occurred.  Each
+Work with your group.  Each group will be assigned a site (i.e. 
+a mutation).  Figure out which upon which branch in the tree, below, that mutation must have occurred.  Each
 group will then stick their mutation to their branch with some tape.
 ```{r echo=FALSE}
 cat("101 203", file = "seedms")  # this sets the seed for ms
@@ -70,7 +70,7 @@ When that is done, we will talk about it.
 
 
 
-### Sprinkling mutations at rate $\theta = 4N\mu$
+### Sprinkling mutations at rate $\theta = 4N\mu L$
 
 Instead of using the `-s` option to specify the exact number of segregating sites,
 you can also use the `-t` option to specify $\theta = 4N\mu L$ where $\nu$ is the 

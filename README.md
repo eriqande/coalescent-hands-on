@@ -10,6 +10,8 @@ modified for a guest lecture I am giving in the graduate level
 Conservation Genetics course at Colorado State University taught by
 Chris Funk and Kristen Ruegg.
 
+I subsequently started using them at the ConGen Workshop.
+
 The html versions of the notebooks are available directly from a page
 with links to them at:
 
