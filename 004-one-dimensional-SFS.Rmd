@@ -148,8 +148,9 @@ plot_sfs <- function(S, add_neutral = TRUE) {
 }
 ```
 
-Now, we can have at it in three easy steps:
+Now, we can simulate, read, and plot the SFS in three easy steps:
 ```{r}
+system2(command = ms_binary(), args = "50 10000 -s 1", stdout = "out.snps", stderr = FALSE)
 S <- ms2sfs(50)
 plot_sfs(S)
 
@@ -164,23 +165,26 @@ For these thought and simulation problems, assume a single population.
 
 
 1. Think about how you might simulate different scenarios that would give you
-an SFS pushed more to the left (more singletons and low-frequency variants---what
+an SFS pushed more to the left (more singletons and low-frequency variants than
+expected under the neutral coalescent with constant population size---what
 would the tree look like for that?), and also scenarios that would give
-you a SFS pushed more to the right (more high-frequency variants).  Hint:
+you an SFS pushed more to the right (more high-frequency variants).  Hint:
 population size changes can do this.
 
 
 
-2. Hand sketch a tree that would give you an SFS pushed to the left and then
+2. Hand-sketch a tree that would give you an SFS pushed to the left and then
 sketch another tree that would give you an SFS pushed to the right.
 
 
 3. Use `ms` to simulate 10,000 SNPs from a single population and produce
-an SFS that is has more rare variants than expected under the neutral coalescent
+an SFS that has more rare variants than expected under the neutral coalescent with
+constant population size.  
 
 
-4. Super bonus problem: create an excess of high-frequency variants that you would
-find in a population that is admixed between two populations back in the past.  
+4. Super bonus problem: create an excess of high-frequency variants by drawing
+your present-day sample from a population
+that is admixed between two populations that existed in the past.  
 
 
 
